@@ -8,9 +8,7 @@
 flask
 flask-cors
 gunicorn
-transformers
 numpy
-spacy
-torch
 sentence-transformers
 groq
+
