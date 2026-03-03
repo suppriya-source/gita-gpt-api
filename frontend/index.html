@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Krishna Web Chat</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+  <div class="krishna-profile">
+    <img src="/imag/Gitaimage.png" alt="Krishna">
+    <h2>Krishna</h2>
+    <p class="status">Online</p>
+    <p class="tagline">Your Divine Guide</p>
+   <div class="mode-selector">
+  <p class="mode-title">Select Mode</p>
+
+  <div class="toggle-container">
+    <span class="mode-label">Normal</span>
+
+    <label class="switch">
+      <input type="checkbox" id="modeToggle">
+      <span class="slider"></span>
+    </label>
+
+    <span class="mode-label">Krishna</span>
+  </div>
+</div>
+  </div>
+
+</div>
+
+  <!-- CHAT WINDOW -->
+  <div class="chat-window">
+
+    <div class="chat-header">
+      🦚 Krishna <br><span class="online-text">online</span>
+    </div>
+
+    <div class="messages" id="chatArea">
+    </div>
+
+    <div id="typingIndicator" class="typing hidden">
+      Krishna is typing...
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Type a message">
+      <button id="sendBtn">➤</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

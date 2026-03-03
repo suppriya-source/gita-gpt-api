@@ -1,0 +1,275 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
+
+body{
+  height:100vh;
+  background:url("/imag/Gitaimage.png") center center no-repeat;
+  background-size:cover;
+  display:flex;
+}
+
+/* Light soft overlay */
+body::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:blur(2px);
+  z-index:0;
+}
+
+.app{
+  display:flex;
+  width:100%;
+  position:relative;
+  z-index:1;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 35%;
+  background: #f8f4ea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #eee;
+}
+
+.krishna-profile {
+  text-align: center;
+}
+
+.krishna-profile img {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
+}
+
+.krishna-profile h2 {
+  margin-top: 20px;
+  font-size: 26px;
+  color: #7a5c00;
+}
+
+.status {
+  color: #2e7d32;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.tagline {
+  font-size: 14px;
+  color: #777;
+  margin-top: 8px;
+}
+
+/* krishnaji animation of the  image  */
+.krishna-profile img {
+  animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  }
+  to {
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+  }
+}
+
+/* CHAT WINDOW */
+.chat-window{
+  width:70%;
+  display:flex;
+  flex-direction:column;
+  background:#efeae2;   /* WhatsApp light bg */
+}
+
+/* HEADER */
+.chat-header{
+  padding:15px;
+  background:#ffffff;
+  border-bottom:1px solid #e0e0e0;
+  font-weight:600;
+  color:#333;
+}
+
+.online-text{
+  font-size:12px;
+  color:#25D366;
+  margin-left:10px;
+}
+
+/* MESSAGES */
+.messages{
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+}
+
+/* MESSAGE STRUCTURE */
+.message{
+  display:flex;
+  margin-bottom:12px;
+}
+
+.bubble{
+  padding:10px 14px;
+  border-radius:12px;
+  max-width:60%;
+  font-size:14px;
+  position:relative;
+}
+
+/* Krishna bubble (AI - left) */
+.ai-message{
+  justify-content:flex-start;
+}
+
+.ai-message .bubble{
+  background:#ffffff;
+  color:#333;
+  border-top-left-radius:0;
+  box-shadow:0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* User bubble (right) */
+.user-message{
+  justify-content:flex-end;
+}
+
+.user-message .bubble{
+  background:#dcf8c6;
+  color:#111;
+  border-top-right-radius:0;
+  box-shadow:0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* Timestamp */
+.meta{
+  font-size:10px;
+  margin-top:4px;
+  text-align:right;
+  opacity:0.6;
+}
+
+/* Typing indicator */
+.typing{
+  padding-left:20px;
+  font-size:13px;
+  color:#666;
+}
+
+.hidden{
+  display:none;
+}
+
+/* INPUT AREA */
+.input-area{
+  display:flex;
+  padding:10px;
+  background:#ffffff;
+  border-top:1px solid #e0e0e0;
+}
+
+.input-area input{
+  flex:1;
+  padding:10px;
+  border-radius:20px;
+  border:1px solid #ddd;
+  outline:none;
+}
+
+.input-area input:focus{
+  border-color:#25D366;
+}
+
+.input-area button{
+  margin-left:10px;
+  padding:10px 15px;
+  border:none;
+  border-radius:50%;
+  background:#25D366;
+  color:white;
+  cursor:pointer;
+}
+
+.input-area button:hover{
+  background:#1ebe5d;
+}
+
+/* Toggle buttons  --------------------------------------------------------------------------*/
+/* Mode Selector */
+.mode-selector {
+  margin-top: 30px;
+}
+
+.mode-title {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.mode-label {
+  font-size: 13px;
+  color: #444;
+}
+
+/* Switch Design */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #4CAF50; /* Normal = green */
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* When Krishna Mode Active */
+input:checked + .slider {
+  background-color: #d4af37; /* golden divine color */
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
