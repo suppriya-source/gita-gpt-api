@@ -7,7 +7,7 @@
 
 body{
   height:100vh;
-  background:url("Gitaimage.png") center center no-repeat;
+  background:url("/Gitaimage.png") center center no-repeat;
   background-size:cover;
   display:flex;
 }
@@ -274,3 +274,4 @@ input:checked + .slider:before {
   transform: translateX(24px);
 
 }
+
