@@ -1,12 +1,10 @@
 import os
 import json
-import numpy as np
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-from sentence_transformers import SentenceTransformer
 from groq import Groq
 
-# 🔑 YOUR API KEY (UNCHANGED)
+# 🔑 API KEY FROM RENDER ENVIRONMENT
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 client = Groq(api_key=GROQ_API_KEY)
 
@@ -21,10 +19,7 @@ app = Flask(
 
 CORS(app)
 
-# Load embedding model
-embed_model = SentenceTransformer("all-MiniLM-L6-v2")
-
-# Load Gita verses
+# 📖 Load Gita verses
 GITA_VERSES = []
 json_path = os.path.join(BACKEND_DIR, "gita_verses.json")
 
@@ -33,22 +28,18 @@ with open(json_path, "r", encoding="utf-8") as f:
     if isinstance(data, list):
         GITA_VERSES = data
 
-translations = [v.get("translation", "") for v in GITA_VERSES]
-VERSE_EMBEDDINGS = embed_model.encode(translations, convert_to_numpy=True)
 
-def cosine_similarity(a, b):
-    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
-
+# 🔍 Simple keyword search (lightweight)
 def search_verse(user_message):
-    user_embedding = embed_model.encode(user_message, convert_to_numpy=True)
-    best_score = -1
-    best_index = 0
-    for i, verse_embedding in enumerate(VERSE_EMBEDDINGS):
-        score = cosine_similarity(user_embedding, verse_embedding)
-        if score > best_score:
-            best_score = score
-            best_index = i
-    return GITA_VERSES[best_index]
+    user_message = user_message.lower()
+
+    for verse in GITA_VERSES:
+        translation = verse.get("translation", "").lower()
+        if any(word in translation for word in user_message.split()):
+            return verse
+
+    return GITA_VERSES[0]  # fallback if nothing matches
+
 
 # 🟡 Krishna Mode
 def generate_krishna_reply(user_message, verse_text):
@@ -76,6 +67,7 @@ Give a clear and practical answer in 3-4 sentences.
     )
     return completion.choices[0].message.content
 
+
 # 🟢 Normal Mode
 def generate_normal_reply(user_message):
     completion = client.chat.completions.create(
@@ -95,9 +87,11 @@ def generate_normal_reply(user_message):
     )
     return completion.choices[0].message.content
 
+
 @app.route("/")
 def home():
     return render_template("index.html")
+
 
 @app.route("/chat", methods=["POST"])
 def chat():
@@ -112,9 +106,7 @@ def chat():
         # 🟢 Normal Mode
         if mode == "normal":
             ai_reply = generate_normal_reply(user_message)
-            return jsonify({
-                "reply": ai_reply
-            })
+            return jsonify({"reply": ai_reply})
 
         # 🟡 Krishna Mode
         verse = search_verse(user_message)
@@ -133,6 +125,7 @@ def chat():
     except Exception as e:
         print("Error:", e)
         return jsonify({"error": "Something went wrong"}), 500
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
