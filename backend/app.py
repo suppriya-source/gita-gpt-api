@@ -14,7 +14,8 @@ BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
 app = Flask(
     __name__,
     template_folder=os.path.join(BASE_DIR, "frontend"),
-    static_folder=os.path.join(BASE_DIR, "frontend")
+    static_folder=os.path.join(BASE_DIR, "frontend"),
+    static_url_path=""
 )
 
 CORS(app)
@@ -130,3 +131,4 @@ def chat():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
