@@ -1,16 +1,4 @@
-# flask
-# flask_cors
-# spacy
-# transformers
-# torch
-
-
 flask
 flask-cors
 gunicorn
-transformers
-numpy
-spacy
-torch
-sentence-transformers
 groq
